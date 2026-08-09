@@ -3,8 +3,9 @@
 #include "io.h"
 #include "usart.h"
 
+#define BUFFER_MAX_LENGTH                           (uint16_t)512
 
-uint8_t buffer[512];
+uint8_t buffer[BUFFER_MAX_LENGTH];
 uint16_t buffer_index;
 bool buffer_full;
 
@@ -22,7 +23,7 @@ void main(void) {
     while ((c = usart1_read_char()) != '\r') {
       usart1_write_char(c);
       buffer[buffer_index++] = c;
-      if (buffer_index >= 511) {
+      if (buffer_index >= (BUFFER_MAX_LENGTH - 1)) {
         buffer_full = true;
         break;
       } 
