@@ -1,17 +1,15 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include "stdint.h" 
-#define RINGBUFFER_SIZE 128
+#include <stdint.h>
 
 typedef enum {
-  RINGBUFFER_OK = 0,
-  RINGBUFFER_FULL,
-  RINGBUFFER_EMPTY
+  RINGBUFFER_STATUS_OK,
+  RINGBUFFER_STATUS_ERROR
 } ringbuffer_status_t;
 
+ringbuffer_status_t ringbuffer_put(uint8_t byte);
+ringbuffer_status_t ringbuffer_get(uint8_t *byte);
 void ringbuffer_init(void);
-ringbuffer_status_t ringbuffer_put(char c);
-ringbuffer_status_t ringbuffer_get(char *ch);
 
 #endif

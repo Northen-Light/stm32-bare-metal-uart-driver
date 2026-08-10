@@ -1,35 +1,59 @@
-CC						= arm-none-eabi-gcc
-LD						= arm-none-eabi-ld
-OBJCOPY				= arm-none-eabi-objcopy
+CC      = arm-none-eabi-gcc
+OBJCOPY = arm-none-eabi-objcopy
 
-CFLAGS				= -Iinclude -mthumb -mcpu=cortex-m3 -O0 -ggdb
-LDFLAGS				= -Tmain.ld -Map=main.map 
+BUILD_DIR = build
 
-SRCS					= \
-								startup.c \
-								main.c \
-								drivers/uart.c \
-								utils/string.c \
-								utils/ringbuffer.c \
-								libs/io.c
+CPUFLAGS = -mcpu=cortex-m3 -mthumb
 
-OBJS					= $(SRCS:.c=.o)
+CFLAGS = \
+	-Iinclude \
+	$(CPUFLAGS) \
+	-std=c11 \
+	-ffreestanding \
+	-O0 \
+	-ggdb \
+	-Wall \
+	-Wextra \
+	-Wconversion \
+	-Wshadow \
+	-Wundef \
+	-ffunction-sections \
+	-fdata-sections
 
-all: main.bin
+LDFLAGS = \
+	$(CPUFLAGS) \
+	-Tlinker/main.ld \
+	-Wl,-Map=$(BUILD_DIR)/main.map,--gc-sections \
+	-nostdlib
 
-%.o: %.c
+SRCS = \
+	startup/startup.c \
+	src/main.c \
+	src/io.c \
+	src/ringbuffer.c \
+	src/usart.c
+
+OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
+
+ELF = $(BUILD_DIR)/main.elf
+BIN = $(BUILD_DIR)/main.bin
+
+all: $(BIN)
+
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-main.elf: $(OBJS)
-	$(LD) $(LDFLAGS) $^ -o $@
+$(ELF): $(OBJS)
+	$(CC) $(LDFLAGS) $(OBJS) -lgcc -o $@
 
-main.bin: main.elf
+$(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
-clean: 
-	rm -rf $(OBJS) main.bin main.elf main.map
+clean:
+	rm -rf $(BUILD_DIR)
 
-flash:
-	st-flash write main.bin 0x08000000 
+flash: $(BIN)
+	st-flash write $(BIN) 0x08000000
 
 .PHONY: all clean flash
