@@ -13,7 +13,7 @@ static bool ringbuffer_empty(void);
 ringbuffer_status_t ringbuffer_put(uint8_t c) {
   if (!ringbuffer_full()) {
     ringbuffer[head] = c;
-    head = (uint16_t)((head + (uint16_t)1) % RINGBUFFER_SIZE);  
+    head = (uint16_t)((head + 1U) & (RINGBUFFER_SIZE - 1U));  
     return RINGBUFFER_STATUS_OK;
   }
   
@@ -23,7 +23,7 @@ ringbuffer_status_t ringbuffer_put(uint8_t c) {
 ringbuffer_status_t ringbuffer_get(uint8_t *byte) {
   if (!ringbuffer_empty()) {
     *byte = ringbuffer[tail];
-    tail = (uint16_t)((tail + (uint16_t)1) % RINGBUFFER_SIZE);
+    tail = (uint16_t)((tail + 1U) & (RINGBUFFER_SIZE - 1U));
     return RINGBUFFER_STATUS_OK;
   }
   
@@ -31,12 +31,12 @@ ringbuffer_status_t ringbuffer_get(uint8_t *byte) {
 }
 
 void ringbuffer_init(void) {
-  head = (uint16_t)0;
-  tail = (uint16_t)0;
+  head = 0U;
+  tail = 0U;
 }
 
 static bool ringbuffer_full(void) {
-  return (((head + (uint16_t)1) % RINGBUFFER_SIZE) == tail);
+  return (((head + 1U) & (RINGBUFFER_SIZE - 1U)) == tail);
 }
 
 static bool ringbuffer_empty(void) {
