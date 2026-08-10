@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "interrupt"
+		},
+		{
+			"path": "polling"
+		},
+		{
+			"path": "dma-circular-buffer"
+		},
+		{
+			"path": "interrupt-ringbuffer"
+		}
+	],
+	"settings": {}
+}
