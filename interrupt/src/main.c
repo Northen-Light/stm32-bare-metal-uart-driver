@@ -3,7 +3,7 @@
 #include "io.h"
 #include "usart.h"
 
-#define BUFFER_MAX_LENGTH                           (uint16_t)512
+#define BUFFER_MAX_LENGTH                                   512
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
 uint16_t buffer_index;

@@ -3,7 +3,7 @@
 #include "usart.h"
 #include "ringbuffer.h"
 
-#define BUFFER_MAX_LENGTH                           (uint16_t)512
+#define BUFFER_MAX_LENGTH                                 512
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
 uint16_t buffer_index;
@@ -20,7 +20,7 @@ void main(void) {
     if (byte == '\r') {
       buffer[buffer_index] = '\0';
       
-      if (buffer_index == (BUFFER_MAX_LENGTH - (uint16_t)1)) {
+      if (buffer_index == (BUFFER_MAX_LENGTH - 1)) {
         print_string((const uint8_t *)"\n");
       }
 
@@ -33,7 +33,7 @@ void main(void) {
       continue;
     }
 
-    if (buffer_index < (BUFFER_MAX_LENGTH - (uint16_t)1)) {
+    if (buffer_index < (BUFFER_MAX_LENGTH - 1)) {
       usart1_write_char(byte);
       buffer[buffer_index++] = byte;
     } else {
