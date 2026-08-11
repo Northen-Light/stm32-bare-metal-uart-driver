@@ -1,11 +1,11 @@
 #include <stdint.h>
 
-#define RCC_APB2ENR                               *((volatile uint32_t *)0x40021018U)
-#define GPIOPA_CRH                                *((volatile uint32_t *)0x40010804U)
-#define USART1_SR                                 *((volatile uint32_t *)0x40013800U)  
-#define USART1_DR                                 *((volatile  uint8_t *)0x40013804U)  
-#define USART1_BRR                                *((volatile uint32_t *)0x40013808U)  
-#define USART_CR1                                 *((volatile uint32_t *)0x4001380CU)
+#define RCC_APB2ENR                               *((volatile uint32_t *)0x40021018)
+#define GPIOPA_CRH                                *((volatile uint32_t *)0x40010804)
+#define USART1_SR                                 *((volatile uint32_t *)0x40013800)  
+#define USART1_DR                                 *((volatile  uint8_t *)0x40013804)  
+#define USART1_BRR                                *((volatile uint32_t *)0x40013808)  
+#define USART_CR1                                 *((volatile uint32_t *)0x4001380C)
 
 #define RCC_APB2ENR_IOPAEN                        (1U << 2)
 #define RCC_APB2ENR_USART1EN                      (1U << 14)
@@ -16,7 +16,7 @@
 #define USART_CR1_UE                              (1U << 13)
 #define USART1_SR_RXNE                            (1U << 5)
 #define USART1_SR_TXE                             (1U << 7)
-#define USART1_BRR_115200_BR                      ((0x4U << 4) | 0x5U)
+#define USART1_BRR_115200_BR                      ((0x4U << 4) | 0x5)
 
 #define GPIOPA_CRH_9_MASK                         (0xFU << 4)
 #define GPIOPA_CRH_10_MASK                        (0xFU << 8)
