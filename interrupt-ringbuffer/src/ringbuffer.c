@@ -11,23 +11,23 @@ static bool ringbuffer_full(void);
 static bool ringbuffer_empty(void);
 
 ringbuffer_status_t ringbuffer_put(uint8_t c) {
-  if (!ringbuffer_full()) {
-    ringbuffer[head] = c;
-    head = (head + 1) & (RINGBUFFER_SIZE - 1);  
-    return RINGBUFFER_STATUS_OK;
+  if (ringbuffer_full()) {
+    return RINGBUFFER_STATUS_ERROR;
   }
-  
-  return RINGBUFFER_STATUS_ERROR;
+
+  ringbuffer[head] = c;
+  head = (head + 1) & (RINGBUFFER_SIZE - 1);  
+  return RINGBUFFER_STATUS_OK;
 }
 
 ringbuffer_status_t ringbuffer_get(uint8_t *byte) {
-  if (!ringbuffer_empty()) {
-    *byte = ringbuffer[tail];
-    tail = (tail + 1) & (RINGBUFFER_SIZE - 1);
-    return RINGBUFFER_STATUS_OK;
+  if (ringbuffer_empty()) {
+    return RINGBUFFER_STATUS_ERROR;
   }
   
-  return RINGBUFFER_STATUS_ERROR;
+  *byte = ringbuffer[tail];
+  tail = (tail + 1) & (RINGBUFFER_SIZE - 1);
+  return RINGBUFFER_STATUS_OK;
 }
 
 void ringbuffer_init(void) {

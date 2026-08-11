@@ -9,7 +9,7 @@
 
 #define RCC_APB2ENR_IOPAEN                        (1U << 2)
 #define RCC_APB2ENR_USART1EN                      (1U << 14)
-#define GPIOPA_CRH_9                              (0x2U << 4)
+#define GPIOPA_CRH_9                              (0xAU << 4)
 #define GPIOPA_CRH_10                             (0x4U << 8)
 #define USART_CR1_RE                              (1U << 2)
 #define USART_CR1_TE                              (1U << 3)

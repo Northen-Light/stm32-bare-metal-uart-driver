@@ -26,10 +26,10 @@ void USART1_IRQHandler_callback(uint8_t byte) {
       print_string((const uint8_t *)"\n");
     }
 
-    print_string((const uint8_t *)"\n");
+    print_string((const uint8_t *)"\r\n");
     print_string((const uint8_t *)"> Output string : ");
     print_string((const uint8_t *)&buffer);
-    print_string((const uint8_t *)"\n\n");
+    print_string((const uint8_t *)"\r\n\n");
     buffer_index = 0;
     print_string((const uint8_t *)"> Input string : ");
     return;
@@ -39,6 +39,6 @@ void USART1_IRQHandler_callback(uint8_t byte) {
     usart1_write_char(byte);
     buffer[buffer_index++] = byte;
   } else {
-    print_string((const uint8_t *)"\nBuffer overflow");
+    print_string((const uint8_t *)"\r\nBuffer overflow");
   }
 }

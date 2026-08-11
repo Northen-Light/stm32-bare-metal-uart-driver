@@ -30,17 +30,17 @@ void main(void) {
     }
     
     buffer[buffer_index] = '\0';
-    print_string((const uint8_t *)"\n");
+    print_string((const uint8_t *)"\r\n");
 
     if (buffer_full == true) {
       while ((c = usart1_read_char()) != '\r') {
-        print_string((const uint8_t *)"Buffer overflow\n");
+        print_string((const uint8_t *)"Buffer overflow\r\n");
       }
-      print_string((const uint8_t *)"\n"); 
+      print_string((const uint8_t *)"\r\n"); 
     }
 
     print_string((const uint8_t *)"> Output string : ");
     print_string((const uint8_t *)&buffer);
-    print_string((const uint8_t *)"\n\n");
+    print_string((const uint8_t *)"\r\n\n");
   }
 }

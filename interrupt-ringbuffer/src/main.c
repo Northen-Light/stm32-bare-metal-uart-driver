@@ -15,29 +15,30 @@ void main(void) {
   while (1) {
     uint8_t byte;
     
-    while (ringbuffer_get(&byte) != RINGBUFFER_STATUS_OK);
+    while (ringbuffer_get(&byte) == RINGBUFFER_STATUS_OK) {
+      if (byte == '\r') {
+        buffer[buffer_index] = '\0';
+        
+        if (buffer_index == (BUFFER_MAX_LENGTH - 1)) {
+          print_string((const uint8_t *)"\r\nBuffer overflow");
+          print_string((const uint8_t *)"\r\n");
+        }
 
-    if (byte == '\r') {
-      buffer[buffer_index] = '\0';
-      
-      if (buffer_index == (BUFFER_MAX_LENGTH - 1)) {
-        print_string((const uint8_t *)"\n");
+        print_string((const uint8_t *)"\r\n");
+        print_string((const uint8_t *)"> Output string : ");
+        print_string((const uint8_t *)&buffer);
+        print_string((const uint8_t *)"\r\n\n");
+        buffer_index = 0;
+        print_string((const uint8_t *)"> Input string : ");
+        continue;
       }
 
-      print_string((const uint8_t *)"\n");
-      print_string((const uint8_t *)"> Output string : ");
-      print_string((const uint8_t *)&buffer);
-      print_string((const uint8_t *)"\n\n");
-      buffer_index = 0;
-      print_string((const uint8_t *)"> Input string : ");
-      continue;
-    }
-
-    if (buffer_index < (BUFFER_MAX_LENGTH - 1)) {
-      usart1_write_char(byte);
-      buffer[buffer_index++] = byte;
-    } else {
-      print_string((const uint8_t *)"\nBuffer overflow");
+      if (buffer_index < (BUFFER_MAX_LENGTH - 1)) {
+        usart1_write_char(byte);
+        buffer[buffer_index++] = byte;
+      } else {
+        print_string((const uint8_t *)"\r\nBuffer overflow");
+      }
     }
   }
 }
