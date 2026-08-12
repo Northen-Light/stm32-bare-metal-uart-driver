@@ -7,7 +7,7 @@
   * 1. Blocking code of this application blocks CPU for atleast 1.5(ms).
   * 2. TX, RX speed of frame (1 start + 8 data + 1 stop = 10 bits) is 87(μs). 
   * 3. Keeping a ring buffer of 32 bytes, allows CPU gets blocked for 32 * 87(μs) = 2.8(ms), 
-  *    bytes are buffered in ring buffer, without characters being overridden or lost. 
+  *    bytes are buffered in ring buffer, without being overridden or lost. 
   * 4. With polling and interrupt with long ISR processing, we will miss incoming bytes. 
 */
 
@@ -47,7 +47,7 @@ void main(void) {
       buffer[buffer_index++] = byte;
     } else {
       /*
-      * Blocking code, it blocks CPU for atleat 1.5 (ms) 
+      * Blocking code, it blocks CPU for atleast 1.5(ms) 
       */
       print_string((const uint8_t *)"\r\nBuffer overflow");
     }
