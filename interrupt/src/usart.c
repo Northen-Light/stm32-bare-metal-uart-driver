@@ -43,6 +43,7 @@ void usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback_t cb) {
 
 void USART1_IRQHandler(void) {
   if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) {
+    // Previously faced frame error probably due to the above condition
     if ((USART1_SR & USART1_SR_RXNE) > 0U) {
       uint8_t byte = USART1_DR;
       USART1_IRQHandler_callback(byte);

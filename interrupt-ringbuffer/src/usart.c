@@ -39,7 +39,8 @@ void usart1_write_char(uint8_t c) {
 }
 
 void USART1_IRQHandler(void) {
-  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) {
+  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) { 
+    // Previously faced frame error probably due to the above condition
     if ((USART1_SR & USART1_SR_RXNE) > 0U) {
       uint8_t byte = USART1_DR;
       ringbuffer_put(byte);
