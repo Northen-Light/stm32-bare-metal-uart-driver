@@ -1,7 +1,7 @@
 #include <stdint.h>
-#include <stdbool.h>
 #include "io.h"
 #include "usart.h"
+#include "gpio.h"
 
 #define BUFFER_MAX_LENGTH                                   512
 
@@ -11,6 +11,7 @@ uint16_t buffer_index;
 void USART1_IRQHandler_callback(uint8_t byte);
 
 void main(void) {
+  gpio_portC_init();
   usart1_init();
   usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback);
   print_string((const uint8_t *)"> Input string : ");

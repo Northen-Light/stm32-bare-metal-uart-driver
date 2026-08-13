@@ -31,7 +31,8 @@ SRCS = \
 	src/main.c \
 	src/io.c \
 	src/ringbuffer.c \
-	src/usart.c
+	src/usart.c \
+	src/gpio.c
 
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 

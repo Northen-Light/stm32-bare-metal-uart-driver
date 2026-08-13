@@ -1,5 +1,6 @@
 #include "usart.h"
 #include "stm32f103xx.h"
+#include "gpio.h"
 
 static USART1_IRQHandler_callback_t USART1_IRQHandler_callback;
 
@@ -42,6 +43,7 @@ void usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback_t cb) {
 }
 
 void USART1_IRQHandler(void) {
+  gpioPC13_set();
   if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) {
     // Previously faced frame error probably due to the above condition
     if ((USART1_SR & USART1_SR_RXNE) > 0U) {
@@ -49,4 +51,5 @@ void USART1_IRQHandler(void) {
       USART1_IRQHandler_callback(byte);
     }
   }
+  gpioPC13_reset();
 }
