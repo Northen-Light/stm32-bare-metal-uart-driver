@@ -41,7 +41,7 @@ void main(void) {
       buffer[buffer_index++] = byte;
     } else {
       gpioPC13_set();
-      print_string((const uint8_t *)"\r\n\n> Buffer overflow !!!");
+      print_string((const uint8_t *)"\r\nBuffer overflow");
       count++;
       gpioPC13_reset();
     }
