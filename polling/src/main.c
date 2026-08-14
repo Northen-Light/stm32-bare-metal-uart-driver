@@ -32,16 +32,16 @@ void main(void) {
     }
     
     buffer[buffer_index] = '\0';
-    print_string((const uint8_t *)"\r\n");
 
     if (buffer_full == true) {
       gpioPC13_set();
-      print_string((const uint8_t *)"\r\n> Buffer Overflow !!! Enter return to continue.");
+      print_string((const uint8_t *)"\r\n\n> Buffer Overflow !!! Enter return to continue.");
       gpioPC13_reset();
       while ((c = usart1_read_char()) != '\r') {}
-      print_string((const uint8_t *)"\r\n\n"); 
+      print_string((const uint8_t *)"\r\n"); 
     }
 
+    print_string((const uint8_t *)"\r\n");
     print_string((const uint8_t *)"> Output string : ");
     print_string((const uint8_t *)&buffer);
     print_string((const uint8_t *)"\r\n\n");
