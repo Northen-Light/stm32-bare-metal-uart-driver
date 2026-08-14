@@ -6,7 +6,7 @@
 #define BUFFER_MAX_LENGTH                                   512
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
-uint16_t buffer_index;
+uint16_t buffer_index = 0U;
 
 void USART1_IRQHandler_callback(uint8_t byte);
 
@@ -31,7 +31,7 @@ void USART1_IRQHandler_callback(uint8_t byte) {
     print_string((const uint8_t *)"> Output string : ");
     print_string((const uint8_t *)&buffer);
     print_string((const uint8_t *)"\r\n\n");
-    buffer_index = 0;
+    buffer_index = 0U;
     print_string((const uint8_t *)"> Input string : ");
     return;
   }

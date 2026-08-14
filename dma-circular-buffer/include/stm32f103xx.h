@@ -34,14 +34,14 @@
 #define USART1_CR3_DMAR                           (1U << 6)
 #define USART1_SR_RXNE                            (1U << 5)
 #define USART1_SR_TXE                             (1U << 7)
-#define USART1_BRR_115200_BR                      ((0x4U << 4) | 0x5)
+#define USART1_BRR_115200_BR                      ((0x4U << 4) | 0x5U)
 
 #define DMA1_CCR5_RESET_MASK                      (0U)
 #define DMA1_CCR5_EN                              (1U << 0)
 #define DMA1_CCR5_TCIE                            (1U << 1)
 #define DMA1_CCR5_CIRC                            (1U << 5)
 #define DMA1_CCR5_MINC                            (1U << 7)
-#define DMA1_CNDTR5_16_BYTE_BUFFER                (16)
+#define DMA1_CNDTR5_16_BYTE_BUFFER                (16U)
 #define DMA1_IFCR_CGIF5                           (1U << 16)
 
 

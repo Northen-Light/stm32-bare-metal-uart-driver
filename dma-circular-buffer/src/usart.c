@@ -4,8 +4,8 @@
 #define DMA_BUFFER_SIZE                     32
 
 static volatile uint8_t dma_buffer[DMA_BUFFER_SIZE];
-uint16_t dma_buffer_index = 0;
-volatile uint32_t rounds = 0;
+uint16_t dma_buffer_index = 0U;
+volatile uint32_t rounds = 0U;
 
 void usart1_init(void) { 
   RCC_APB2ENR |= RCC_APB2ENR_IOPAEN;

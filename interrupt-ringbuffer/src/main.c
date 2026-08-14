@@ -8,7 +8,7 @@
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
 uint16_t buffer_index;
-uint32_t count = 0;
+uint32_t count = 0U;
 
 void main(void) {
   gpio_portC_init();
@@ -31,7 +31,7 @@ void main(void) {
       print_string((const uint8_t *)"> Output string : ");
       print_string((const uint8_t *)&buffer);
       print_string((const uint8_t *)"\r\n\n");
-      buffer_index = 0;
+      buffer_index = 0U;
       print_string((const uint8_t *)"> Input string : ");
       continue;
     }
