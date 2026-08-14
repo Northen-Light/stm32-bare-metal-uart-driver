@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdbool.h>
 #include "io.h"
 #include "usart.h"
 #include "ringbuffer.h"
@@ -8,7 +9,7 @@
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
 uint16_t buffer_index;
-uint32_t count = 0U;
+bool buffer_full = false;
 
 void main(void) {
   gpio_portC_init();
@@ -39,11 +40,14 @@ void main(void) {
     if (buffer_index < (BUFFER_MAX_LENGTH - 1)) {
       usart1_write_char(byte);
       buffer[buffer_index++] = byte;
+      buffer_full = true;
     } else {
-      gpioPC13_set();
-      print_string((const uint8_t *)"\r\nBuffer overflow");
-      count++;
-      gpioPC13_reset();
+      if (buffer_full) {
+        buffer_full = false;
+        gpioPC13_set();
+        print_string((const uint8_t *)"\r\n\n> Buffer Overflow !!! Enter return to continue.");
+        gpioPC13_reset();
+      }
     }
   }
 }

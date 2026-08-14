@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "io.h"
 #include "usart.h"
+#include "gpio.h"
 
 #define BUFFER_MAX_LENGTH                                 512
 
@@ -10,6 +11,7 @@ uint16_t buffer_index = 0U;
 bool buffer_full = false;
 
 void main(void) {
+  gpio_portC_init();
   usart1_init();
 
   while (1) {
@@ -33,10 +35,11 @@ void main(void) {
     print_string((const uint8_t *)"\r\n");
 
     if (buffer_full == true) {
-      while ((c = usart1_read_char()) != '\r') {
-        print_string((const uint8_t *)"Buffer overflow\r\n");
-      }
-      print_string((const uint8_t *)"\r\n"); 
+      gpioPC13_set();
+      print_string((const uint8_t *)"\r\n> Buffer Overflow !!! Enter return to continue.");
+      gpioPC13_reset();
+      while ((c = usart1_read_char()) != '\r') {}
+      print_string((const uint8_t *)"\r\n\n"); 
     }
 
     print_string((const uint8_t *)"> Output string : ");

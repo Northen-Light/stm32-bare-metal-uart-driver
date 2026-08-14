@@ -30,7 +30,8 @@ SRCS = \
 	startup/startup.c \
 	src/main.c \
 	src/io.c \
-	src/usart.c
+	src/usart.c \
+	src/gpio.c
 
 OBJS = $(SRCS:%.c=$(BUILD_DIR)/%.o)
 

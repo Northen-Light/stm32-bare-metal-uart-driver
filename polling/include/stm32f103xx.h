@@ -6,6 +6,8 @@
 #define USART1_DR                                 *((volatile  uint8_t *)0x40013804U)  
 #define USART1_BRR                                *((volatile uint32_t *)0x40013808U)  
 #define USART_CR1                                 *((volatile uint32_t *)0x4001380CU)
+#define GPIOC_CRH                                 *((volatile uint32_t *)0x40011004U)
+#define GPIOC_BSRR                                *((volatile uint32_t *)0x40011010U)
 
 #define RCC_APB2ENR_IOPAEN                        (1U << 2)
 #define RCC_APB2ENR_USART1EN                      (1U << 14)
