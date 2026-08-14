@@ -1,9 +1,8 @@
 #ifndef IO_H
 #define IO_H
 
-#include "stdint.h"
+#include <stdint.h>
 
-void printstr (const char *s);
-void printnumber(uint8_t num);
+void print_string(const uint8_t *buffer);
 
 #endif

@@ -4,17 +4,17 @@
 			"path": "."
 		},
 		{
+			"path": "polling"
+		},
+		{
 			"path": "interrupt"
 		},
 		{
-			"path": "polling"
+			"path": "interrupt-ringbuffer"
 		},
 		{
 			"path": "dma-circular-buffer"
 		},
-		{
-			"path": "interrupt-ringbuffer"
-		}
 	],
 	"settings": {}
 }
