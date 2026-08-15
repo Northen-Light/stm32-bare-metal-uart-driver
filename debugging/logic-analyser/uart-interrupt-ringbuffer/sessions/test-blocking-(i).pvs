@@ -1,6 +1,6 @@
 [General]
-decode_signals=1
-meta_objs=13
+decode_signals=0
+meta_objs=5
 views=1
 
 [D0]
@@ -59,128 +59,34 @@ conversion_type=0
 enabled=false
 name=D7
 
-[decode_signal0]
-channel0\assigned_signal_name=RX
-channel0\initial_pin_state=2
-channel0\name=RX
-channel1\assigned_signal_name=TX
-channel1\initial_pin_state=2
-channel1\name=TX
-channels=2
-color=4281510450
-conv_options=0
-conversion_type=0
-decoder0\ann_class0\visible=true
-decoder0\ann_class1\visible=true
-decoder0\ann_class10\visible=true
-decoder0\ann_class11\visible=true
-decoder0\ann_class12\visible=true
-decoder0\ann_class13\visible=true
-decoder0\ann_class14\visible=true
-decoder0\ann_class15\visible=true
-decoder0\ann_class16\visible=true
-decoder0\ann_class17\visible=true
-decoder0\ann_class2\visible=true
-decoder0\ann_class3\visible=true
-decoder0\ann_class4\visible=true
-decoder0\ann_class5\visible=true
-decoder0\ann_class6\visible=true
-decoder0\ann_class7\visible=true
-decoder0\ann_class8\visible=true
-decoder0\ann_class9\visible=true
-decoder0\id=uart
-decoder0\options=0
-decoder0\row0\visible=true
-decoder0\row1\visible=true
-decoder0\row2\visible=true
-decoder0\row3\visible=true
-decoder0\row4\visible=true
-decoder0\row5\visible=true
-decoder0\row6\visible=true
-decoder0\row7\visible=true
-decoder0\row8\visible=true
-decoder0\row9\visible=true
-decoder0\visible=true
-decoders=1
-enabled=true
-name=UART
-
 [meta_obj0]
 assoc_view=0
-text=I
-time=22 serialization::archive 16 0 0 0 0 4 26371663 72436288 73484516 41324859 84341435 0 0 0 6
+text=D
+time=22 serialization::archive 16 0 0 0 0 4 43723983 33333329 38991588 88962119 81773375 0 0 0 6
 type=time_marker
 
 [meta_obj1]
 assoc_view=0
-text=J
-time=22 serialization::archive 16 0 0 0 0 4 26391924 99999998 27593910 59516929 9002303 0 0 0 6
-type=time_marker
-
-[meta_obj10]
-assoc_view=0
-text=N
-time=22 serialization::archive 16 0 0 0 0 8 27283224 45941170 62585204 23030642 8215903 0 0 0 6
-type=time_marker
-
-[meta_obj11]
-assoc_view=0
-text=O
-time=22 serialization::archive 16 0 0 0 0 9 91318483 33333341 11671319 98809054 49390411 0 0 0 6
-type=time_marker
-
-[meta_obj12]
-assoc_view=0
-text=P
-time=22 serialization::archive 16 0 0 0 0 9 91319908 33333336 61016695 25960460 30521392 0 0 0 6
+text=F
+time=22 serialization::archive 16 0 0 0 0 4 44142248 21737984 14344383 53936540 21442408 0 0 0 6
 type=time_marker
 
 [meta_obj2]
 assoc_view=0
-text=Q
-time=22 serialization::archive 16 0 0 0 0 4 47751566 66666662 27513360 35435087 97883987 0 0 0 6
+text=C
+time=22 serialization::archive 16 0 0 0 0 4 59353449 99999996 31825176 3854648 76890182 0 0 0 6
 type=time_marker
 
 [meta_obj3]
 assoc_view=0
-text=R
-time=22 serialization::archive 16 0 0 0 0 4 47886141 66666667 6021260 32463274 89614486 0 0 0 6
+text=A
+time=22 serialization::archive 16 0 0 0 0 4 59355058 33333332 14852700 62112249 43399428 0 0 0 6
 type=time_marker
 
 [meta_obj4]
 assoc_view=0
-text=S
-time=22 serialization::archive 16 0 0 0 0 4 48032499 99999996 68887085 13579331 33840560 0 0 0 6
-type=time_marker
-
-[meta_obj5]
-assoc_view=0
-text=K
-time=22 serialization::archive 16 0 0 0 0 4 76759733 33333336 86766764 355063 37881087 0 0 0 6
-type=time_marker
-
-[meta_obj6]
-assoc_view=0
-text=L
-time=22 serialization::archive 16 0 0 0 0 4 76791877 64117190 37733401 76637134 28706346 0 0 0 6
-type=time_marker
-
-[meta_obj7]
-assoc_view=0
-text=G
-time=22 serialization::archive 16 0 0 0 0 5 54048083 33333335 21295571 69973850 25024413 0 0 0 6
-type=time_marker
-
-[meta_obj8]
-assoc_view=0
-text=H
-time=22 serialization::archive 16 0 0 0 0 5 54066980 7066311 13038532 79225227 1383024 0 0 0 6
-type=time_marker
-
-[meta_obj9]
-assoc_view=0
-text=M
-time=22 serialization::archive 16 0 0 0 0 8 27261129 32241024 24990500 24593185 40917922 0 0 0 6
+text=B
+time=22 serialization::archive 16 0 0 0 0 4 59781217 72492286 27166514 67650252 89364805 0 0 0 6
 type=time_marker
 
 [view0]
@@ -192,9 +98,9 @@ D4\trace_height=32
 D5\trace_height=32
 D6\trace_height=32
 D7\trace_height=32
-offset=22 serialization::archive 16 0 0 0 0 4 58262563 10801603 69342 88937303 63431633 0 0 0 6
-scale=9.1739175682349795e-05
+offset=22 serialization::archive 16 0 0 0 0 4 43528193 5315324 54141667 89267793 63661546 0 0 0 6
+scale=4.9821920018385072e-06
 segment_display_mode=1
-splitter_state=@ByteArray(\0\0\0\xff\0\0\0\x1\0\0\0\x2\0\0\0I\0\0\x5\a\x1\0\0\0\x1\x1\0\0\0\x1\0)
-v_offset=-264
+splitter_state=@ByteArray(\0\0\0\xff\0\0\0\x1\0\0\0\x2\0\0\0I\0\0\x6^\x1\0\0\0\x1\x1\0\0\0\x1\0)
+v_offset=-268
 zero_offset=22 serialization::archive 16 0 0 0 0 0 0 0 0 0 0 0 0 0 6
