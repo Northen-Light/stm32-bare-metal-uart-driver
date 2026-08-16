@@ -7,15 +7,15 @@
 #define BUFFER_MAX_LENGTH                                   512
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
-uint16_t buffer_index = 0U;
+uint16_t buffer_index = 0;
 bool buffer_full = false;
 
 void USART1_IRQHandler_callback(uint8_t byte);
 
 void main(void) {
+  usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback);
   gpio_portC_init();
   usart1_init();
-  usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback);
   print_string((const uint8_t *)"> Input string : ");
 
   while (1) {}
@@ -33,7 +33,7 @@ void USART1_IRQHandler_callback(uint8_t byte) {
     print_string((const uint8_t *)"> Output string : ");
     print_string((const uint8_t *)&buffer);
     print_string((const uint8_t *)"\r\n\n");
-    buffer_index = 0U;
+    buffer_index = 0;
     print_string((const uint8_t *)"> Input string : ");
     return;
   }

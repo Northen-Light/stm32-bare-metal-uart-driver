@@ -4,8 +4,8 @@
 #define DMA_BUFFER_SIZE                     32
 
 static volatile uint8_t dma_buffer[DMA_BUFFER_SIZE];
-uint16_t dma_buffer_index = 0U;
-volatile uint32_t rounds = 0U;
+uint16_t dma_buffer_index = 0;
+volatile uint32_t rounds = 0;
 
 void usart1_init(void) { 
   RCC_APB2ENR |= RCC_APB2ENR_IOPAEN;
@@ -22,7 +22,7 @@ void usart1_init(void) {
   DMA1_CCR5 |= DMA1_CCR5_TCIE;
   DMA1_CCR5 |= DMA1_CCR5_CIRC;
   DMA1_CCR5 |= DMA1_CCR5_MINC;
-  DMA1_CNDTR5 = DMA1_CNDTR5_16_BYTE_BUFFER;
+  DMA1_CNDTR5 = DMA_BUFFER_SIZE;
   DMA1_CPAR5 = (uintptr_t) &USART1_DR;
   DMA1_CMAR5 = (uintptr_t) dma_buffer;
   DMA1_CCR5 |= DMA1_CCR5_EN;
@@ -47,17 +47,17 @@ void usart1_init(void) {
 }
 
 void usart1_write_char(uint8_t byte) {
-  while ((USART1_SR & USART1_SR_TXE) == 0U) {}
+  while ((USART1_SR & USART1_SR_TXE) == 0) {}
   USART1_DR = byte;
 }
 
 usart1_status_t usart1_read_char(uint8_t *byte) {
-  if (dma_buffer_index == (DMA1_CNDTR5_16_BYTE_BUFFER - DMA1_CNDTR5)) {
+  if (dma_buffer_index == (DMA_BUFFER_SIZE - DMA1_CNDTR5)) {
     return USART1_STATUS_READ_WAIT;
   }
 
   *byte = dma_buffer[dma_buffer_index];
-  dma_buffer_index = (dma_buffer_index + 1) & (DMA1_CNDTR5_16_BYTE_BUFFER - 1);
+  dma_buffer_index = (dma_buffer_index + 1) & (DMA_BUFFER_SIZE - 1);
 
   return USART1_STATUS_READ_OK;
 }

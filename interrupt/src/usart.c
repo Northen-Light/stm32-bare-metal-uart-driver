@@ -34,7 +34,7 @@ void usart1_init(void) {
 }
 
 void usart1_write_char(uint8_t c) {
-  while ((USART1_SR & USART1_SR_TXE) == 0U) {}
+  while ((USART1_SR & USART1_SR_TXE) == 0) {}
   USART1_DR = c;
 }
 
@@ -44,9 +44,9 @@ void usart1_set_USART1_IRQHandler_callback(USART1_IRQHandler_callback_t cb) {
 
 void USART1_IRQHandler(void) {
   gpioPC13_set();
-  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) {
+  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0) {
     // Previously faced frame error probably due to the above condition
-    if ((USART1_SR & USART1_SR_RXNE) > 0U) {
+    if ((USART1_SR & USART1_SR_RXNE) > 0) {
       uint8_t byte = USART1_DR;
       USART1_IRQHandler_callback(byte);
     }

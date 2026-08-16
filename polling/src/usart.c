@@ -29,11 +29,11 @@ void usart1_init(void) {
 }
 
 void usart1_write_char(uint8_t c) {
-  while ((USART1_SR & USART1_SR_TXE) == 0U) {}
+  while ((USART1_SR & USART1_SR_TXE) == 0) {}
   USART1_DR = c;
 }
 
 uint8_t usart1_read_char(void) {
-  while ((USART1_SR & USART1_SR_RXNE) == 0U) {}
+  while ((USART1_SR & USART1_SR_RXNE) == 0) {}
   return USART1_DR;
 }

@@ -20,6 +20,7 @@
 
 
 #define RCC_APB2ENR_IOPAEN                        (1U << 2)
+#define RCC_APB2ENR_IOPCEN                        (1U << 4)
 #define RCC_APB2ENR_USART1EN                      (1U << 14)
 #define RCC_AHBENR_DMA1EN                         (1U << 0)
 
@@ -27,6 +28,10 @@
 #define GPIOPA_CRH_10                             (0x4U << 8)
 #define GPIOPA_CRH_9_MASK                         (0xFU << 4)
 #define GPIOPA_CRH_10_MASK                        (0xFU << 8)
+#define GPIOPC_CRH_13                             (1U << 20)
+#define GPIOC_BSRR_SET_13                         (1U << 13)
+#define GPIOC_BSRR_RESET_13                       (1U << (13 + 16))
+#define GPIOPC_CRH_13_MASK                        (0xFU << 20)
 
 #define USART1_CR1_RE                             (1U << 2)
 #define USART1_CR1_TE                             (1U << 3)
@@ -41,7 +46,6 @@
 #define DMA1_CCR5_TCIE                            (1U << 1)
 #define DMA1_CCR5_CIRC                            (1U << 5)
 #define DMA1_CCR5_MINC                            (1U << 7)
-#define DMA1_CNDTR5_16_BYTE_BUFFER                (16U)
 #define DMA1_IFCR_CGIF5                           (1U << 16)
 
 

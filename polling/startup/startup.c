@@ -15,7 +15,7 @@ __attribute__((used, section(".isr_vector")))
 const uintptr_t vector_table[] = {
   (uintptr_t) &_estack,
   (uintptr_t) Reset_Handler,
-  0U,
+  (uintptr_t) 0,
   (uintptr_t) HardFault_Handler,
 };
 

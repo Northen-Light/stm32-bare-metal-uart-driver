@@ -7,7 +7,7 @@
 #define BUFFER_MAX_LENGTH                                 512
 
 uint8_t buffer[BUFFER_MAX_LENGTH];
-uint16_t buffer_index = 0U;
+uint16_t buffer_index = 0;
 bool buffer_full = false;
 
 void main(void) {

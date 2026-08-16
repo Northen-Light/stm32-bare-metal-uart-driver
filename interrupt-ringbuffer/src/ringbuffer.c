@@ -4,8 +4,8 @@
 #define RINGBUFFER_SIZE                                 256
 
 static uint8_t ringbuffer[RINGBUFFER_SIZE];
-static uint16_t head;
-static uint16_t tail;
+static volatile uint16_t head;
+static volatile uint16_t tail;
 
 static bool ringbuffer_full(void);
 static bool ringbuffer_empty(void);

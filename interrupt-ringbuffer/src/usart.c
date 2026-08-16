@@ -3,6 +3,8 @@
 #include "ringbuffer.h"
 
 void usart1_init(void) { 
+  ringbuffer_init();
+  
   RCC_APB2ENR |= RCC_APB2ENR_IOPAEN;
   RCC_APB2ENR |= RCC_APB2ENR_USART1EN;
 
@@ -29,19 +31,17 @@ void usart1_init(void) {
 
   NVIC_ISER1 = NVIC_ISER1_USART1;
   USART_CR1 |= USART1_CR1_UE;
-  
-  ringbuffer_init();
 }
 
 void usart1_write_char(uint8_t c) {
-  while ((USART1_SR & USART1_SR_TXE) == 0U) {}
+  while ((USART1_SR & USART1_SR_TXE) == 0) {}
   USART1_DR = c;
 }
 
 void USART1_IRQHandler(void) {
-  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0U) { 
+  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0) { 
     // Previously faced frame error probably due to the above condition
-    if ((USART1_SR & USART1_SR_RXNE) > 0U) {
+    if ((USART1_SR & USART1_SR_RXNE) > 0) {
       uint8_t byte = USART1_DR;
       ringbuffer_put(byte);
     }
