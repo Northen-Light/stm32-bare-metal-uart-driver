@@ -39,7 +39,10 @@ void main(void) {
     if (buffer_index < (BUFFER_MAX_LENGTH - 1)) {
       usart1_write_char(byte);
       buffer[buffer_index++] = byte;
-      buffer_full = true;
+
+      if (buffer_index == (BUFFER_MAX_LENGTH - 1)) {
+        buffer_full = true;
+      }
     } else {
       if (buffer_full) {
         buffer_full = false;
