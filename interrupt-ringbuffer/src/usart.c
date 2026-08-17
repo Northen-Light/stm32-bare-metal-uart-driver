@@ -14,10 +14,10 @@ void usart1_init(void) {
   GPIOPA_CRH &= ~GPIOPA_CRH_10_MASK;
   GPIOPA_CRH |= GPIOPA_CRH_10;
 
-  USART_CR1 &= ~USART1_CR1_UE;
-  USART_CR1 |= USART1_CR1_RE;
-  USART_CR1 |= USART1_CR1_TE;
-  USART_CR1 |= USART1_CR1_RXNEIE;
+  USART1_CR1 &= ~USART1_CR1_UE;
+  USART1_CR1 |= USART1_CR1_RE;
+  USART1_CR1 |= USART1_CR1_TE;
+  USART1_CR1 |= USART1_CR1_RXNEIE;
 
   /*
     Select Baud rate (BR) = 115200
@@ -30,7 +30,7 @@ void usart1_init(void) {
   USART1_BRR = USART1_BRR_115200_BR;
 
   NVIC_ISER1 = NVIC_ISER1_USART1;
-  USART_CR1 |= USART1_CR1_UE;
+  USART1_CR1 |= USART1_CR1_UE;
 }
 
 void usart1_write_char(uint8_t c) {
@@ -38,8 +38,16 @@ void usart1_write_char(uint8_t c) {
   USART1_DR = c;
 }
 
+void usart1_enable_rx(void) {
+  USART1_CR1 |= USART1_CR1_RE;
+}
+
+void usart1_disable_rx(void) {
+  USART1_CR1 &= ~USART1_CR1_RE;
+}
+
 void USART1_IRQHandler(void) {
-  if ((USART_CR1 & USART1_CR1_RXNEIE) > 0) { 
+  if ((USART1_CR1 & USART1_CR1_RXNEIE) > 0) { 
     // Previously faced frame error probably due to the above condition
     if ((USART1_SR & USART1_SR_RXNE) > 0) {
       uint8_t byte = USART1_DR;

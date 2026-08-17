@@ -11,9 +11,9 @@ void usart1_init(void) {
   GPIOPA_CRH &= ~GPIOPA_CRH_10_MASK;
   GPIOPA_CRH |= GPIOPA_CRH_10;
 
-  USART_CR1 &= ~USART_CR1_UE;
-  USART_CR1 |= USART_CR1_RE;
-  USART_CR1 |= USART_CR1_TE;
+  USART1_CR1 &= ~USART1_CR1_UE;
+  USART1_CR1 |= USART1_CR1_RE;
+  USART1_CR1 |= USART1_CR1_TE;
 
   /*
     Select Baud rate (BR) = 115200
@@ -25,7 +25,7 @@ void usart1_init(void) {
   */
   USART1_BRR = USART1_BRR_115200_BR;
 
-  USART_CR1 |= USART_CR1_UE;
+  USART1_CR1 |= USART1_CR1_UE;
 }
 
 void usart1_write_char(uint8_t c) {
@@ -33,7 +33,19 @@ void usart1_write_char(uint8_t c) {
   USART1_DR = c;
 }
 
-uint8_t usart1_read_char(void) {
-  while ((USART1_SR & USART1_SR_RXNE) == 0) {}
-  return USART1_DR;
+usart1_status_t usart1_read_char(uint8_t *byte) {
+  if ((USART1_SR & USART1_SR_RXNE) == 0) {
+    return USART1_STATUS_READ_DATA_NOT_PRESENT;
+  }
+
+  *byte = USART1_DR;
+  return USART1_STATUS_READ_DONE;
+}
+
+void usart1_enable_rx(void) {
+  USART1_CR1 |= USART1_CR1_RE;
+}
+
+void usart1_disable_rx(void) {
+  USART1_CR1 &= ~USART1_CR1_RE;
 }

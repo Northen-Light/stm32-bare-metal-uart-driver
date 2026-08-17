@@ -28,10 +28,10 @@ void usart1_init(void) {
   DMA1_CCR5 |= DMA1_CCR5_EN;
   NVIC_ISER0 |= NVIC_ISER0_DMA1_CHANNEL5;
 
-  USART_CR1 &= ~USART1_CR1_UE;
-  USART_CR1 |= USART1_CR1_RE;
-  USART_CR1 |= USART1_CR1_TE;
-  USART_CR3 |= USART1_CR3_DMAR;
+  USART1_CR1 &= ~USART1_CR1_UE;
+  USART1_CR1 |= USART1_CR1_RE;
+  USART1_CR1 |= USART1_CR1_TE;
+  USART1_CR3 |= USART1_CR3_DMAR;
 
   /*
     Select Baud rate (BR) = 115200
@@ -43,7 +43,7 @@ void usart1_init(void) {
   */
   USART1_BRR = USART1_BRR_115200_BR;
 
-  USART_CR1 |= USART1_CR1_UE;
+  USART1_CR1 |= USART1_CR1_UE;
 }
 
 void usart1_write_char(uint8_t byte) {
@@ -53,13 +53,21 @@ void usart1_write_char(uint8_t byte) {
 
 usart1_status_t usart1_read_char(uint8_t *byte) {
   if (dma_buffer_index == (DMA_BUFFER_SIZE - DMA1_CNDTR5)) {
-    return USART1_STATUS_READ_WAIT;
+    return USART1_STATUS_READ_DATA_NOT_PRESENT;
   }
 
   *byte = dma_buffer[dma_buffer_index];
   dma_buffer_index = (dma_buffer_index + 1) & (DMA_BUFFER_SIZE - 1);
 
-  return USART1_STATUS_READ_OK;
+  return USART1_STATUS_READ_DONE;
+}
+
+void usart1_enable_rx(void) {
+  USART1_CR1 |= USART1_CR1_RE;
+}
+
+void usart1_disable_rx(void) {
+  USART1_CR1 &= ~USART1_CR1_RE;
 }
 
 void DMA1_Channel5_IRQHandler(void) {

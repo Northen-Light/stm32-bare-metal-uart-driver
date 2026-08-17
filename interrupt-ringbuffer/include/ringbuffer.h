@@ -5,7 +5,8 @@
 
 typedef enum {
   RINGBUFFER_STATUS_OK,
-  RINGBUFFER_STATUS_ERROR
+  RINGBUFFER_STATUS_EMPTY,
+  RINGBUFFER_STATUS_FULL
 } ringbuffer_status_t;
 
 ringbuffer_status_t ringbuffer_put(uint8_t byte);

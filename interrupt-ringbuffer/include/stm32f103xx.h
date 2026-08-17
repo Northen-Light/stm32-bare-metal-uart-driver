@@ -5,7 +5,7 @@
 #define USART1_SR                                 *((volatile uint32_t *)0x40013800U)  
 #define USART1_DR                                 *((volatile  uint8_t *)0x40013804U)  
 #define USART1_BRR                                *((volatile uint32_t *)0x40013808U)  
-#define USART_CR1                                 *((volatile uint32_t *)0x4001380CU)
+#define USART1_CR1                                 *((volatile uint32_t *)0x4001380CU)
 #define NVIC_ISER1                                *((volatile uint32_t *)0xE000E104U)
 #define GPIOC_CRH                                 *((volatile uint32_t *)0x40011004U)
 #define GPIOC_BSRR                                *((volatile uint32_t *)0x40011010U)

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "ringbuffer.h"
 
-#define RINGBUFFER_SIZE                                 256
+#define RINGBUFFER_SIZE                                 32
 
 static uint8_t ringbuffer[RINGBUFFER_SIZE];
 static volatile uint16_t head;
@@ -12,7 +12,7 @@ static bool ringbuffer_empty(void);
 
 ringbuffer_status_t ringbuffer_put(uint8_t c) {
   if (ringbuffer_full()) {
-    return RINGBUFFER_STATUS_ERROR;
+    return RINGBUFFER_STATUS_FULL;
   }
 
   ringbuffer[head] = c;
@@ -22,7 +22,7 @@ ringbuffer_status_t ringbuffer_put(uint8_t c) {
 
 ringbuffer_status_t ringbuffer_get(uint8_t *byte) {
   if (ringbuffer_empty()) {
-    return RINGBUFFER_STATUS_ERROR;
+    return RINGBUFFER_STATUS_EMPTY;
   }
   
   *byte = ringbuffer[tail];
