@@ -68,9 +68,9 @@ while (1) {
 }
 ```
 
-The non-blocking polling implementation requires the calculation task to remain short so that the UART is serviced frequently. The ring-buffer and circular DMA implementations provide additional buffering, allowing received data to be processed after the calculation task returns.
+The non-blocking polling implementation requires the calculation task to remain short so that the UART is serviced frequently. The ring-buffer and circular DMA implementations continue receiving and buffering UART data while the calculation task runs, allowing the main loop to process the data afterward.
 
-The direct-interrupt implementation processes received bytes from an application callback invoked inside the USART interrupt handler.
+The direct-interrupt implementation processes received byte inside the USART interrupt handler.
 
 ---
 
