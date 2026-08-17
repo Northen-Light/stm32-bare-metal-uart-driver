@@ -32,7 +32,6 @@ void main(void) {
  */
 
 static void process_usart1_received_data_task(void) {
-  gpioPC13_set();
   uint8_t byte;
 
   if (should_print_input_prompt) {
@@ -75,8 +74,6 @@ static void process_usart1_received_data_task(void) {
       }
     }
   }
-
-  gpioPC13_reset();
 }
 
 static int32_t calculate_sum_n_task(int16_t n) {
