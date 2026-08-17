@@ -8,7 +8,8 @@ The project demonstrates the progression from polling-based UART communication t
 
 # Features
 
-- Polling-based UART transmission and reception
+- Polling-based UART transmission
+- Non-blocking polling-based UART reception
 - Interrupt-driven UART reception
 - Interrupt-driven reception with a single-producer, single-consumer ring buffer
 - Circular DMA-based UART reception
@@ -47,12 +48,29 @@ Topics covered include:
 
 | Directory | RX method | Description |
 | --- | --- | --- |
-| [`polling/`](polling/) | Polling | Blocks until a byte is received |
+| [`polling/`](polling/) | Non-blocking polling | The main loop checks for available data and must service the UART frequently |
 | [`interrupt/`](interrupt/) | RX interrupt | Passes each received byte to an application callback from the USART ISR |
-| [`interrupt-ringbuffer/`](interrupt-ringbuffer/) | Interrupt + ring buffer | ISR receives bytes while the main loop processes them |
-| [`dma-circular-buffer/`](dma-circular-buffer/) | Circular DMA | DMA receives bytes without a per-byte USART interrupt |
+| [`interrupt-ringbuffer/`](interrupt-ringbuffer/) | Interrupt + ring buffer | The ISR buffers received bytes while the main loop processes them |
+| [`dma-circular-buffer/`](dma-circular-buffer/) | Circular DMA | DMA buffers received bytes without a per-byte USART interrupt |
 
 The example application echoes received characters and prints the completed line when Return is pressed.
+
+---
+
+# Cooperative Superloop
+
+The polling, interrupt-with-ring-buffer, and circular DMA implementations run UART processing alongside a calculation task using a cooperative superloop:
+
+```c
+while (1) {
+  process_usart1_received_data_task();
+  sum_n = calculate_sum_n_task(...);
+}
+```
+
+The non-blocking polling implementation requires the calculation task to remain short so that the UART is serviced frequently. The ring-buffer and circular DMA implementations provide additional buffering, allowing received data to be processed after the calculation task returns.
+
+The direct-interrupt implementation processes received bytes from an application callback invoked inside the USART interrupt handler.
 
 ---
 
@@ -157,7 +175,7 @@ This project provided practical experience with:
 - Implementing polling, interrupt-driven, and DMA-based UART reception
 - Moving received-byte processing out of the ISR using a ring buffer
 - Consuming received data from a circular DMA buffer
-- Comparing the behavior of different UART reception methods
+- Comparing the timing constraints of polling, interrupt-driven, ring-buffered, and DMA-based UART reception
 - Measuring UART and interrupt timing with a logic analyser
 
 ---
