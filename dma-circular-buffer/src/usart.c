@@ -53,13 +53,13 @@ void usart1_write_char(uint8_t byte) {
 
 usart1_status_t usart1_read_char(uint8_t *byte) {
   if (dma_buffer_index == (DMA_BUFFER_SIZE - DMA1_CNDTR5)) {
-    return USART1_STATUS_READ_DATA_NOT_PRESENT;
+    return USART1_STATUS_NO_DATA;
   }
 
   *byte = dma_buffer[dma_buffer_index];
   dma_buffer_index = (dma_buffer_index + 1) & (DMA_BUFFER_SIZE - 1);
 
-  return USART1_STATUS_READ_DONE;
+  return USART1_STATUS_OK;
 }
 
 void usart1_enable_rx(void) {

@@ -11,8 +11,10 @@ static uint8_t buffer[BUFFER_MAX_LENGTH];
 static uint16_t buffer_index = 0;
 static bool buffer_full = false;
 static bool should_print_input_prompt = true;
+static int32_t sum_n = 0;
 
 static void process_usart1_received_data_task(void);
+static int32_t calculate_sum_n_task(int16_t n); 
 
 void main(void) {
   gpio_portC_init();
@@ -20,6 +22,7 @@ void main(void) {
 
   while (1) {
     process_usart1_received_data_task();
+    sum_n = calculate_sum_n_task(1000);
   }
 }
 
@@ -75,4 +78,16 @@ static void process_usart1_received_data_task(void) {
   }
 
   gpioPC13_reset();
+}
+
+static int32_t calculate_sum_n_task(int16_t n) {
+  gpioPC13_set();
+  int32_t sum = 0;
+
+  for (int16_t i = 0; i < n; i++) {
+    sum += i;
+  }
+  gpioPC13_reset();
+
+  return sum;
 }

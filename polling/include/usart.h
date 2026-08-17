@@ -4,8 +4,8 @@
 #include <stdint.h>
 
 typedef enum {
-  USART1_STATUS_READ_DONE,
-  USART1_STATUS_READ_DATA_NOT_PRESENT
+  USART1_STATUS_OK,
+  USART1_STATUS_NO_DATA
 } usart1_status_t;
 
 void usart1_init(void);

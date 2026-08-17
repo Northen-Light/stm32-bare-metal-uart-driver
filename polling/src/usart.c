@@ -35,11 +35,11 @@ void usart1_write_char(uint8_t c) {
 
 usart1_status_t usart1_read_char(uint8_t *byte) {
   if ((USART1_SR & USART1_SR_RXNE) == 0) {
-    return USART1_STATUS_READ_DATA_NOT_PRESENT;
+    return USART1_STATUS_NO_DATA;
   }
 
   *byte = USART1_DR;
-  return USART1_STATUS_READ_DONE;
+  return USART1_STATUS_OK;
 }
 
 void usart1_enable_rx(void) {

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include "ringbuffer.h"
 
-#define RINGBUFFER_SIZE                                 32
+#define RINGBUFFER_SIZE                                 64
 
 static uint8_t ringbuffer[RINGBUFFER_SIZE];
 static volatile uint16_t head;
