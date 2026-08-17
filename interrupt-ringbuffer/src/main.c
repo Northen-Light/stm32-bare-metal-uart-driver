@@ -23,6 +23,12 @@ void main(void) {
   }
 }
 
+/*
+ * Reception is disabled while printing the completed line.
+ * The terminal application assumes that the user waits for the
+ * next input prompt before entering another line.
+ */
+
 static void process_usart1_received_data_task(void) {
   gpioPC13_set();
   uint8_t byte;
