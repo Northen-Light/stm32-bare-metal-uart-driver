@@ -31,7 +31,7 @@ void USART1_IRQHandler_callback(uint8_t byte) {
 
     print_string((const uint8_t *)"\r\n");
     print_string((const uint8_t *)"> Output string : ");
-    print_string((const uint8_t *)&buffer);
+    print_string(buffer);
     print_string((const uint8_t *)"\r\n\n");
     buffer_index = 0;
     print_string((const uint8_t *)"> Input string : ");

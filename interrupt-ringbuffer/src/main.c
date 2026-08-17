@@ -49,7 +49,7 @@ static void process_usart1_received_data_task(void) {
 
       print_string((const uint8_t *)"\r\n");
       print_string((const uint8_t *)"> Output string : ");
-      print_string((const uint8_t *)&buffer);
+      print_string(buffer);
       print_string((const uint8_t *)"\r\n\n");
       buffer_index = 0;
       should_print_input_prompt = true;
