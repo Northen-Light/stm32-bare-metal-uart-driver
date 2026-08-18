@@ -59,7 +59,7 @@ The example application echoes received characters and prints the completed line
 
 # Cooperative Superloop
 
-The polling, interrupt-with-ring-buffer, and circular DMA implementations run UART processing alongside a calculation task using a cooperative superloop:
+The polling, interrupt-with-ring-buffer, and circular DMA implementations run UART processing alongside a background calculation task using a cooperative superloop:
 
 ```c
 while (1) {
@@ -125,7 +125,7 @@ ringbuffer_put(byte)              ringbuffer_get(&byte)
 - Only the ISR modifies `head`.
 - Only the main loop modifies `tail`.
 
-The ring buffer contains 256 slots, of which 255 are usable. One slot is reserved to distinguish the full and empty states.
+The ring buffer contains 64 slots, of which 63 are usable. One slot is reserved to distinguish the full and empty states.
 
 Because the buffer size is a power of two, index wrapping uses a bit mask:
 
