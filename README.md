@@ -171,6 +171,7 @@ The [`debugging/logic-analyser/`](debugging/logic-analyser/) directory contains 
 - USART interrupt-handler execution time
 - Latency introduced by blocking application code
 - UART string-transmission time
+- Background calculation task execution time
 
 The directory includes screenshots and raw PulseView and Saleae session files.
 
@@ -185,7 +186,7 @@ This project provided practical experience with:
 - Moving received-byte processing out of the ISR using a ring buffer
 - Consuming received data from a circular DMA buffer
 - Comparing the timing constraints of polling, interrupt-driven, ring-buffered, and DMA-based UART reception
-- Measuring UART and interrupt timing with a logic analyser
+- Measuring UART echo latency, interrupt-handler execution time, and background-task execution time with a logic analyser
 
 ---
 
