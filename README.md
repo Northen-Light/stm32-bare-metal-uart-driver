@@ -86,6 +86,15 @@ TX and RX are cross-connected. The USB-UART adapter must use **3.3 V logic level
 
 ---
 
+# Hardware Setup
+
+![STM32F103 UART driver hardware setup](docs/images/uart-hardware-setup.jpg)
+
+The setup includes the STM32F103C8T6, CP2102 USB-to-UART adapter, ST-Link V2, and logic analyser used for communication, programming, debugging, and timing measurements.
+
+
+---
+
 # UART Configuration
 
 - USART1
