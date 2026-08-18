@@ -83,6 +83,7 @@ static int32_t run_background_calculation(int16_t n) {
   for (int16_t i = 0; i < n; i++) {
     sum += i;
   }
+  
   gpioPC13_reset();
 
   return sum;
