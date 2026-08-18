@@ -63,8 +63,8 @@ The polling, interrupt-with-ring-buffer, and circular DMA implementations run UA
 
 ```c
 while (1) {
-  process_usart1_received_data_task();
-  sum_n = calculate_sum_n_task(...);
+  process_usart1_received_data();
+  sum_n = run_background_calculation(...);
 }
 ```
 

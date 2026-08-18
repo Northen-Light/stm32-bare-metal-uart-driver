@@ -13,16 +13,16 @@ static bool buffer_full = false;
 static bool should_print_input_prompt = true;
 static int32_t sum_n = 0;
 
-static void process_usart1_received_data_task(void);
-static int32_t calculate_sum_n_task(int16_t n); 
+static void process_usart1_received_data(void);
+static int32_t run_background_calculation(int16_t n); 
 
 void main(void) {
   gpio_portC_init();
   usart1_init();
 
   while (1) {
-    process_usart1_received_data_task();
-    sum_n = calculate_sum_n_task(1000);
+    process_usart1_received_data();
+    sum_n = run_background_calculation(1000);
   }
 }
 
@@ -32,7 +32,7 @@ void main(void) {
  * next input prompt before entering another line.
  */
 
-static void process_usart1_received_data_task(void) {
+static void process_usart1_received_data(void) {
   uint8_t byte;
 
   if (should_print_input_prompt) {
@@ -77,7 +77,7 @@ static void process_usart1_received_data_task(void) {
   }
 }
 
-static int32_t calculate_sum_n_task(int16_t n) {
+static int32_t run_background_calculation(int16_t n) {
   gpioPC13_set();
   int32_t sum = 0;
 
