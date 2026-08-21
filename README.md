@@ -13,6 +13,7 @@ The project demonstrates the progression from polling-based UART communication t
 - Interrupt-driven UART reception
 - Interrupt-driven reception with a single-producer, single-consumer ring buffer
 - Circular DMA-based UART reception
+- Circular DMA buffer overrun detection
 - Logic-analyser-based timing and latency measurements
 - Serial-terminal example application
 
@@ -64,13 +65,13 @@ The polling, interrupt-with-ring-buffer, and circular DMA implementations run UA
 ```c
 while (1) {
   process_usart1_received_data();
-  sum_n = run_background_calculation(...);
+  sum_n = run_background_calculation(1000);
 }
 ```
 
 The non-blocking polling implementation requires the calculation task to remain short so that the UART is serviced frequently. The ring-buffer and circular DMA implementations continue receiving and buffering UART data while the calculation task runs, allowing the main loop to process the data afterward.
 
-The direct-interrupt implementation processes received byte inside the USART interrupt handler.
+The direct-interrupt implementation processes received bytes inside the USART interrupt handler.
 
 ---
 
@@ -139,9 +140,9 @@ head = (head + 1) & (RINGBUFFER_SIZE - 1);
 
 DMA1 Channel 5 transfers received USART1 bytes directly into a 32-byte circular buffer.
 
-The application determines the current DMA write position from the channel’s remaining-transfer count, `DMA1_CNDTR5`.
+The application uses `DMA1_CNDTR5` to determine the current DMA write position. A separate cycle counter tracks completed DMA buffer wraps.
 
-Circular DMA reception avoids executing a USART interrupt for every received byte.
+The DMA write cycle and index are compared with the application’s read cycle and index to detect when DMA has advanced beyond unread data and overwritten it.
 
 ---
 
@@ -184,7 +185,7 @@ This project provided practical experience with:
 - Configuring STM32 USART, GPIO, NVIC, and DMA through memory-mapped registers
 - Implementing polling, interrupt-driven, and DMA-based UART reception
 - Moving received-byte processing out of the ISR using a ring buffer
-- Consuming received data from a circular DMA buffer
+- Consuming received data from a circular DMA buffer and detecting overwritten unread data
 - Comparing the timing constraints of polling, interrupt-driven, ring-buffered, and DMA-based UART reception
 - Measuring UART echo latency, interrupt-handler execution time, and background-task execution time with a logic analyser
 
@@ -244,5 +245,4 @@ screen /dev/cu.usbserial-XXXX 115200
 - UART transmission is polling-based.
 - UART hardware errors are not explicitly handled or reported.
 - Received bytes are dropped silently when the ring buffer is full.
-- Circular DMA buffer overrun is not detected.
 - USART1 configuration is fixed to 115200 baud with an 8 MHz peripheral clock.
