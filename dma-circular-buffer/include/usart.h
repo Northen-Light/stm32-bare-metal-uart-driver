@@ -5,7 +5,8 @@
 
 typedef enum {
   USART1_STATUS_OK,
-  USART1_STATUS_NO_DATA
+  USART1_STATUS_NO_DATA,
+  USART1_STATUS_DMA_BUFFER_OVERRUN 
 } usart1_status_t;
 
 void usart1_init(void);

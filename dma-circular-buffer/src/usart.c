@@ -4,8 +4,9 @@
 #define DMA_BUFFER_SIZE                     32
 
 static volatile uint8_t dma_buffer[DMA_BUFFER_SIZE];
-uint16_t dma_buffer_index = 0;
-volatile uint32_t rounds = 0;
+volatile uint32_t write_cycles = 0; 
+uint32_t read_cycles = 0;
+uint32_t read_index = 0;
 
 void usart1_init(void) { 
   RCC_APB2ENR |= RCC_APB2ENR_IOPAEN;
@@ -52,12 +53,35 @@ void usart1_write_char(uint8_t byte) {
 }
 
 usart1_status_t usart1_read_char(uint8_t *byte) {
-  if (dma_buffer_index == (DMA_BUFFER_SIZE - DMA1_CNDTR5)) {
+  uint32_t write_cycles_before = 0;
+  uint32_t write_cycles_after = 0;
+  uint32_t write_index = 0;
+  uint32_t cyclic_difference;
+
+  do {
+    write_cycles_before = write_cycles;
+    write_index = (DMA_BUFFER_SIZE - DMA1_CNDTR5);
+    write_cycles_after = write_cycles;
+  } while (write_cycles_before != write_cycles_after);
+
+  cyclic_difference = write_cycles_after - read_cycles;
+
+  if ((cyclic_difference > 1) || ((cyclic_difference == 1) && (write_index > read_index))) {
+    read_index = write_index;
+    read_cycles = write_cycles;
+    return USART1_STATUS_DMA_BUFFER_OVERRUN;
+  }
+
+  if ((read_cycles == write_cycles_after) && (read_index == write_index)) {
     return USART1_STATUS_NO_DATA;
   }
 
-  *byte = dma_buffer[dma_buffer_index];
-  dma_buffer_index = (dma_buffer_index + 1) & (DMA_BUFFER_SIZE - 1);
+  *byte = dma_buffer[read_index];
+  read_index = (read_index + 1) & (DMA_BUFFER_SIZE - 1);
+
+  if (read_index == 0) {
+    read_cycles++;
+  }
 
   return USART1_STATUS_OK;
 }
@@ -71,6 +95,6 @@ void usart1_disable_rx(void) {
 }
 
 void DMA1_Channel5_IRQHandler(void) {
-  DMA1_IFCR |= DMA1_IFCR_CGIF5;
-  rounds++;
+  DMA1_IFCR = DMA1_IFCR_CGIF5;
+  write_cycles++;
 }
